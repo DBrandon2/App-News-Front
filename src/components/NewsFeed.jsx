@@ -10,8 +10,6 @@ function NewsFeed() {
   const { news, addNews } = useContext(PostContext);
   const { user } = useContext(AuthContext);
 
-  // régler le pb de l'heure
-
   const categories = [
     { id: "all", label: "All" },
     { id: "technology", label: "Technology" },
@@ -23,12 +21,29 @@ function NewsFeed() {
     { id: "science", label: "Science" },
   ];
 
-  // Récupération et attribution des posts
   console.log(news);
 
   const toggleForm = () => {
     setIsFormVisible(!isFormVisible);
   };
+
+  useEffect(() => {
+    const eventSource = new EventSource(
+      `http://localhost:3000/stream?user=${user.name}`
+    );
+    eventSource.addEventListener("new_post", (e) => {
+      const newPost = JSON.parse(e.data);
+      addNews(newPost);
+      toast.success(`Nouveau post dans la catégorie ${newPost.category}`);
+    });
+
+    eventSource.onopen = () => {
+      console.log("Connexion SSE");
+    };
+    return () => {
+      eventSource.close();
+    };
+  }, [user, addNews, news]);
 
   return (
     <div>
@@ -46,7 +61,7 @@ function NewsFeed() {
           <NewsForm toggleForm={toggleForm} />
         </div>
       )}
-  
+
       <div className="mb-4 overflow-x-auto">
         <div className="flex space-x-2 p-1">
           {categories.map((category) => (
