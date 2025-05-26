@@ -9,18 +9,20 @@ export default function PostProvider({ children }) {
   const [news, setNews] = useState([]);
   const { user } = useContext(AuthContext);
 
-  
   const addNews = (newPost) => {
     setNews([...news, newPost]);
   };
-  
+
   useEffect(() => {
     console.log(news);
     const getNews = async () => {
       try {
         const allPosts = await getPostsByUser(user);
-        setNews(allPosts);
-         console.log(news);
+        const sortedPosts = allPosts.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setNews(sortedPosts);
+        console.log(news);
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +33,7 @@ export default function PostProvider({ children }) {
   }, [user]);
 
   return (
-    <PostContext.Provider value={{ news, addNews, }}>
+    <PostContext.Provider value={{ news, addNews }}>
       {children}
     </PostContext.Provider>
   );
