@@ -46,7 +46,7 @@ function NewsFeed() {
           <NewsForm toggleForm={toggleForm} />
         </div>
       )}
-
+  
       <div className="mb-4 overflow-x-auto">
         <div className="flex space-x-2 p-1">
           {categories.map((category) => (

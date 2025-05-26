@@ -1,7 +1,9 @@
+import { BASE_URL } from "../utils/url";
+
 export async function addPost(title, content, category, user) {
   user = user.name;
   try {
-    const response = await fetch(`${VITE_API_URL}/post`, {
+    const response = await fetch(`${BASE_URL}/post`, {
       method: "POST",
       body: JSON.stringify({ title, content, category, user }),
       headers: {
@@ -17,7 +19,7 @@ export async function addPost(title, content, category, user) {
 
 export async function getPostsByUser(user) {
   try {
-    const response = await fetch(`${VITE_API_URL}/post/getPosts`, {
+    const response = await fetch(`${BASE_URL}/post/getPosts`, {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: {
