@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import NewsForm from "./NewsForm";
-import { PostContext } from "../context/postContext";
+import { PostContext } from "../context/PostContext";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 

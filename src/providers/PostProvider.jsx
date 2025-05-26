@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PostContext } from "../context/postContext";
+import { PostContext } from "../context/PostContext";
 import { useEffect } from "react";
 import { getPostsByUser } from "../apis/post.api";
 import { AuthContext } from "../context/AuthContext";

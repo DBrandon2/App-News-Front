@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { addPost } from "../apis/post.api";
-import { PostContext } from "../context/postContext";
+import { PostContext } from "../context/PostContext";
 
 function NewsForm({ toggleForm }) {
   const { user } = useContext(AuthContext);
